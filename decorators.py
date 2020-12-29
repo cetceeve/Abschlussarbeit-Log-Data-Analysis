@@ -19,3 +19,12 @@ def exec_per_user(log_data, user_arr):
              return [func(log_data[user], *args, **kwargs) for user in user_arr]
         return wrapper
     return decorator
+
+# exec function for every task
+def exec_per_task(log_data, task_arr):
+    @exec_all(log_data)
+    def decorator(datapoint_arr, func):
+        def wrapper(*args, **kwargs):
+            return [func([dp for dp in datapoint_arr if dp['taskID'] == task], *args, **kwargs) for task in task_arr]
+        return wrapper
+    return decorator

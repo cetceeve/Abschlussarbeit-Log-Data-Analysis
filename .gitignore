@@ -140,4 +140,4 @@ cython_debug/
 # user data
 log_data.json
 valid_sessions.csv
-results.csv
+out/

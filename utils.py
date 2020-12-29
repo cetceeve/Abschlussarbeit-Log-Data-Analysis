@@ -12,6 +12,12 @@ def add_headers(arr, headers_arr):
     arr.insert(0, headers_arr)
 
 def export_csv(filename, res):
-    with open(filename, 'w', newline='') as csvfile:
+    with open('out/' + filename, 'w', newline='') as csvfile:
         writer = csv.writer(csvfile)
         writer.writerows(res)
+
+def stringify_iterable(iterable):
+    acc = ''
+    for i in iterable:
+        acc = acc + str(i) + ', '
+    return acc[:-2]
