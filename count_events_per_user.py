@@ -1,9 +1,7 @@
-import json
-import csv
+import utils
 import decorators
 
-with open('log_data.json') as json_file:
-    log_data = json.load(json_file)
+log_data = utils.import_log_data()
 
 # users are taken once to ensure loop execution order
 users = list(log_data.keys())
@@ -21,8 +19,8 @@ def unique_values(arr, property):
     values = [datapoint[property] for datapoint in arr]
     return set(values)
 
-print(unique_values('windowHeight'))
-print(unique_values('windowWidth'))
+print(len(unique_values('windowHeight')))
+print(len(unique_values('windowWidth')))
 
 # create dataset
 data = []
@@ -30,14 +28,10 @@ data.append(users)
 data.append(count_type('scroll'))
 data.append(count_type('click'))
 data.append(count_type('change'))
-data.append(count_type('touchstart'))
 
-# transpose the matrix
-res = list(map(list, zip(*data)))
-res.insert(0, ['user', 'scroll events', 'click events', 'change events', 'touchstart events'])
+res = utils.transpose_matrix(data)
 
-with open('results.csv', 'w', newline='') as csvfile:
-    writer = csv.writer(csvfile)
-    writer.writerows(res)
+utils.add_headers(res, ['user', 'scroll events', 'click events', 'change events'])
+utils.export_csv('results.csv', res)
 
 print('analysis complete')
