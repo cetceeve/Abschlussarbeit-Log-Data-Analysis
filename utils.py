@@ -21,3 +21,12 @@ def stringify_iterable(iterable):
     for i in iterable:
         acc = acc + str(i) + ', '
     return acc[:-2]
+
+def filter_by_property(arr, prop, value):
+    return [dp for dp in arr if dp[prop] == value]
+
+def get_property(arr, prop):
+    return [dp[prop] for dp in arr]
+
+def remove_duplicate_entries(arr):
+    return list(dict.fromkeys(arr))
