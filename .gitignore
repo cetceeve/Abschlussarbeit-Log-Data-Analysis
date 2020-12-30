@@ -137,6 +137,9 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
+# editor stuff
+.vscode/
+
 # user data
 log_data.json
 valid_sessions.csv
