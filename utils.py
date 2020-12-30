@@ -28,5 +28,8 @@ def filter_by_property(arr, prop, value):
 def get_property(arr, prop):
     return [dp[prop] for dp in arr]
 
+def remove_empty_entries(arr):
+    return [item for item in arr if item is not None]
+
 def remove_duplicate_entries(arr):
-    return list(dict.fromkeys(arr))
+    return remove_empty_entries(list(dict.fromkeys(arr)))

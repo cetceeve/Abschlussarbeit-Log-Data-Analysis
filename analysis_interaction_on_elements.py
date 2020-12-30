@@ -6,12 +6,15 @@ LOG_DATA = utils.import_log_data()
 
 # get unique values for log datapoint property
 @decorators.exec_all(LOG_DATA)
-def unique_porp_values(arr, prop=None):
-    values = [datapoint[prop] for datapoint in arr]
-    return list(set(values))
+def unique_prop_values(arr, prop=None):
+    values = utils.get_property(arr, prop)
+    values = utils.remove_duplicate_entries(values)
+    # reversing order to match mental model of timeline from left to right
+    values.reverse()
+    return values
 
 # task list is created once to ensure order
-TASKS = unique_porp_values('taskID')
+TASKS = unique_prop_values('taskID')
 @decorators.exec_per_task(LOG_DATA, TASKS)
 def count_interaction_per_task(arr, target, interaction=None):
     values = utils.filter_by_property(arr, 'target', target)
@@ -27,8 +30,7 @@ def count_interaction_per_user(arr, target, interaction=None):
 
 
 # interaction targets are taken once to ensure order
-TARGETS = unique_porp_values('target')
-TARGETS = [target for target in TARGETS if target is not None]
+TARGETS = unique_prop_values('target')
 
 def create_dataset_per_task(interaction):
     print('creating dataset for ' + interaction + ' interaction per task')
