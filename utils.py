@@ -25,6 +25,9 @@ def stringify_iterable(iterable):
 def filter_by_property(arr, prop, value):
     return [dp for dp in arr if dp[prop] == value]
 
+def exclude_by_property(arr, prop, value):
+    return [dp for dp in arr if dp[prop] != value]
+
 def get_property(arr, prop):
     return [dp[prop] for dp in arr]
 

@@ -9,7 +9,8 @@ USERS = list(LOG_DATA.keys())
 # count a type of interaction for each session
 @decorators.exec_per_user(LOG_DATA, USERS)
 def count_interaction_per_user(arr, interaction=None):
-    values = utils.get_property(arr, 'type')
+    values = utils.exclude_by_property(arr, 'taskID',  'exploration') 
+    values = utils.get_property(values, 'type')
     return values.count(interaction)
 
 
